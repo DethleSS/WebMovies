@@ -16,9 +16,15 @@ namespace WebMovie.Controllers
 
         // GET: api/Movies
         [HttpGet("[action]")]
-        public Movie Get()
+        public List<Movie> Get()
         {
-            return WebMoviesDBContext.CreateDbContext(); 
+            return WebMoviesDBContext.GetMovie(); 
+        }
+
+        [HttpGet("[action]")]
+        public void DeleteById(int id)
+        {
+            WebMoviesDBContext.DeleteMovieById(id);
         }
 
     }

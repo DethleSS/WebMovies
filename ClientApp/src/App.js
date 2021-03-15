@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import React, { useState, useEffect, useCallback } from 'react'
+import { useHttp } from './Hooks/http.hook';
+import Movie from './Components/movie'
+import Preloader from './Components/Preloader/preloader'
+function App() {
+  const [data, setData] = useState()
 
-export default class App extends Component {
-  static displayName = App.name;
+useEffect(() => {
+  fetch('api/Movies/Get')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setData(data)
+      });
+},[])
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
+  return (
+    <div>
+
+    </div>
+  );
 }
+
+export default App;
