@@ -14,17 +14,29 @@ namespace WebMovie.Controllers
     {
         
 
-        // GET: api/Movies
         [HttpGet("[action]")]
         public List<Movie> Get()
         {
             return WebMoviesDBContext.GetMovie(); 
         }
 
-        [HttpGet("[action]")]
+
+        [HttpDelete("{id}")]
         public void DeleteById(int id)
         {
             WebMoviesDBContext.DeleteMovieById(id);
+        }
+
+        [HttpPost]
+        public void AddMovie(Movie movie)
+        {
+            WebMoviesDBContext.AddMovie(movie);
+        }
+
+        [HttpPost]
+        public void UpdateMovie(Movie movie)
+        {
+            WebMoviesDBContext.UpdateMovie(movie);
         }
 
     }
