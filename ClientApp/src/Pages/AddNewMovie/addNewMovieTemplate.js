@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useHttp } from '../../Components/httpHook'
 import { Nav } from 'react-bootstrap'
 
+
+
 const AddNewMovieTemplate = ({length}) => {
 
     const [form, setForm] = useState({
@@ -24,24 +26,35 @@ const AddNewMovieTemplate = ({length}) => {
         ],
         ReleaseDate: '',
         Picture: ''
-    }
+    })
+
+    const [nameGenre, setNameGenre] = useState()
+    const [FirstName, setFirstName] = useState()
+    const [SecondName, setSecondName] = useState()
+    const [Photo, setPhoto] = useState()
 
 
-    )
+    
+
+
     const { loading, request, error, clearError } = useHttp()
 
     async function AddMovie() {
+        form.Genre[0].NameGenre = nameGenre
+        form.Author[0].FirstName = FirstName
+        form.Author[0].SecondName = SecondName
+        form.Author[0].Photo = Photo
         try {
             const data = await request('/api/Movies', 'POST', { ...form })
             console.log(1, data)
         } catch (e) {
 
         }
-        window.location.reload()
     }
 
     const changeHandler = event => {
-        setForm({ ...form, [event.target.name]: event.target.value })
+        setForm({ ...form, [event.target.name]: event.target.value });
+        
     }
 
 
@@ -54,7 +67,6 @@ const AddNewMovieTemplate = ({length}) => {
                 name="Name"
                 onChange={changeHandler}
             />
-            {console.log(length)}
             <input
                 placeholder="Enter ReleaseDate"
                 id="ReleaseDate"
@@ -75,21 +87,21 @@ const AddNewMovieTemplate = ({length}) => {
                 id="FirstName"
                 type="text"
                 name="FirstName"
-                onChange={changeHandler}
+                onChange={e => setFirstName(e.target.value)}
             />
             <input
                 placeholder="Enter SecondName"
                 id="SecondName"
                 type="text"
                 name="SecondName"
-                onChange={changeHandler}
+                onChange={e => setSecondName(e.target.value)}
             />
             <input
                 placeholder="Enter link Photo"
                 id="Photo"
                 type="text"
                 name="Photo"
-                onChange={changeHandler}
+                onChange={e => setPhoto(e.target.value)}
             />
             <h1>Genre</h1>
             <input
@@ -97,8 +109,9 @@ const AddNewMovieTemplate = ({length}) => {
                 id="NameGenre"
                 type="text"
                 name="NameGenre"
-                onChange={changeHandler}
+                onChange={e => setNameGenre(e.target.value)}
             /><p/>
+            
         <Nav.Link href="/listMovie"><button onClick={AddMovie}>Add movie</button></Nav.Link>
         </div>
     )

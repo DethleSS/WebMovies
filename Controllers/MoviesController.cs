@@ -32,6 +32,12 @@ namespace WebMovie.Controllers
 
         }
 
+        [HttpPut]
+        public void UpdateMovie([FromBody]Movie movie)
+        {
+            WebMoviesDBContext.UpdateMovie(movie);
+
+        }
 
     }
 }

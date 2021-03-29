@@ -42,6 +42,17 @@ namespace WebMovie.Context
             }
         }
 
+        static public void UpdateMovie(Movie movie)
+        {
+
+            using (var db = new LiteDatabase(@"WebMoviesDB.db"))
+            {
+                var collection = db.GetCollection<Movie>("movies");
+                collection.Update(movie);
+
+            }
+        }
+
 
 
 

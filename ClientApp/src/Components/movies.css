@@ -1,6 +1,7 @@
 .item__element{
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row;
     align-items: center;
+    flex-wrap:wrap;
 }
 

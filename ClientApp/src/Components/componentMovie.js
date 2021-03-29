@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Nav } from 'react-bootstrap'
 import './componentMovie.css'
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import SearchIcon from '@material-ui/icons/Search';
+import EditMovie from '../Pages/EditMovie/editMovie'
+import SettingsIcon from '@material-ui/icons/Settings';
+export const MovieContext = React.createContext()
+
 const Movie = ({ movie }) => {
 
     async function DeleteItem(id) {
@@ -20,7 +24,16 @@ const Movie = ({ movie }) => {
     return (
         <>
             <div className="bg__item" style={{ backgroundImage: `url(${movie.picture})` }}>
-                <Nav.Link href="/infoMovie"><SearchIcon className="icon__search" style={{ fontSize: 60 }} href="/infoMovie"/></Nav.Link>
+                <MovieContext.Provider value={{movie}}>
+                    {console.log(movie)}
+                    <Nav.Link href="/infoMovie"><SearchIcon className="icon__search" style={{ fontSize: 60 }} /></Nav.Link>
+                    <Nav.Link href="/editMovie"><SettingsIcon className="icon__search" style={{ fontSize: 60 }} /></Nav.Link>
+                    <EditMovie/>
+                </MovieContext.Provider>
+
+
+
+
                 <DeleteOutlinedIcon className="icon__delete" onClick={() => DeleteItem(movie.id)} style={{ fontSize: 60 }} /><p />
                 <div className="field__text">
                     <h1 className="text__place">{movie.name}</h1>

@@ -7,10 +7,15 @@ const AddComponentMovie = () => {
 
     return (
         <div className="bg__item--add" >
-            <div>
-            <Nav.Link href="/addNewMovie"><AddIcon className="icon__plus" style={{ fontSize: 60 }} /></Nav.Link>
-                
+            <div className="bg__item--add_text">
+                <p>Create new Movies</p>
             </div>
+
+            <div className="bg__item--add_content">
+                <Nav.Link href="/addNewMovie"><AddIcon className="icon__plus" style={{ fontSize: 100 }} /></Nav.Link>
+            </div>
+
+
         </div>
     )
 }
