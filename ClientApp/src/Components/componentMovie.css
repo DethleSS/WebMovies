@@ -4,40 +4,80 @@
     justify-content: flex-end;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 261px;
-    height: 332px;
+    width: 461px;
+    height: 732px;
     margin-left: 24px;
     margin-right: 24px;
     border-radius: 10px;
-    transition: all 0.2s ease-in-out;
+
 }
 
 .bg__item--add{
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: #434d4b;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 261px;
-    height: 332px;
+    width: 461px;
+    height: 732px;
     margin-left: 24px;
     margin-right: 24px;
     border-radius: 10px;  
     border: 4px  black;
+
+}
+
+.icon__search{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 0 3px rgb(20, 20, 20);
     transition: all 0.2s ease-in-out;
 }
 
-.bg__item--add:hover {
-    transform: scale(1.02);
+.icon__search:hover {
+    transform: scale(1.04);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.icon__plus{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 0 3px rgb(20, 20, 20);
+    transition: all 0.2s ease-in-out;
+}
+
+.icon__plus:hover {
+    transform: scale(1.04);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.icon__delete{
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 0 3px rgb(20, 20, 20);
+    transition: all 0.2s ease-in-out;
+
+}
+
+.icon__delete:hover {
+    transform: scale(1.04);
     transition: all 0.2s;
     cursor: pointer;
 }
 
 .bg__item:hover {
-    transform: scale(1.02);
-    transition: all 0.2s;
-    cursor: pointer;
+    background-blend-mode: multiply;
+    background-color: #3b3b3b;
+    background-blend-mode: overlay ;
+}
+
+.bg__item--add:hover {
+    background-blend-mode: multiply;
+    background-color: #3b3b3b;
+    background-blend-mode: overlay;
 }
 
 .text__place{

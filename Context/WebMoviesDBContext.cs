@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LiteDB;
 using WebMovie.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebMovie.Context
 {
@@ -16,6 +17,7 @@ namespace WebMovie.Context
                 var collection = db.GetCollection<Movie>("movies");
 
                 List<Movie> listMovies = new List<Movie>(collection.FindAll());
+                Console.WriteLine(collection.FindById(1));
                 return listMovies;
             }
         }
@@ -29,14 +31,14 @@ namespace WebMovie.Context
             }
         }
 
-        static public void AddMovie(String name)
+        static public void AddMovie(Movie movie)
         {
 
             using (var db = new LiteDatabase(@"WebMoviesDB.db"))
             {
                 var collection = db.GetCollection<Movie>("movies");
-                var movie = new Movie { Name = name};
                 collection.Insert(movie);
+                
             }
         }
 

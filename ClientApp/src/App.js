@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import Movies from './Components/movies'
-function App() {
-  const [data, setData] = useState()
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import ListMovie from './Pages/ListMovie/listMovie'
+import InfoMovieComponent from './Pages/InfoMovie/infoMovieComponent'
+import AddComponentMovie from './Pages/AddNewMovie//addNewMovieTemplate'
 
-  useEffect(async () => {
-    const response = await fetch("/api/Movies", {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-    const data = await response.json()
-    setData(data)
-    console.log(data)
-  }, [])
+function App() {
 
   return (
-    <div>
-      {data ?
-        <div>
-          <Movies key={data} movies={data} />
-        </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" render={() => (
+          <Redirect to="/listMovie" />
+        )} />
+        <Route exarc path="/listMovie" component={ListMovie} />
+        <Route exarc path="/infoMovie" component={InfoMovieComponent} />
+        <Route exarc path="/addNewMovie" component={AddComponentMovie} />
 
-        : <h1>loading</h1>}
-    </div>
+      </Switch>
+    </Router>
   );
 }
 

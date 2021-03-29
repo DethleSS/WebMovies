@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebMovie.Context;
 using WebMovie.Models;
+using LiteDB;
 
 namespace WebMovie.Controllers
 {
@@ -25,9 +26,10 @@ namespace WebMovie.Controllers
         }
 
         [HttpPost]
-        public void Post(String name)
+        public void AddMovie([FromBody]Movie movie)
         {
-            WebMoviesDBContext.AddMovie(name);
+            WebMoviesDBContext.AddMovie(movie);
+
         }
 
 
