@@ -14,6 +14,7 @@ namespace WebMovie.Context
             using (var db = new LiteDatabase(@"WebMoviesDB.db"))
             {
                 var collection = db.GetCollection<Movie>("movies");
+
                 List<Movie> listMovies = new List<Movie>(collection.FindAll());
                 return listMovies;
             }
@@ -28,23 +29,18 @@ namespace WebMovie.Context
             }
         }
 
-        static public void AddMovie(Movie movie)
+        static public void AddMovie(String name)
         {
+
             using (var db = new LiteDatabase(@"WebMoviesDB.db"))
             {
                 var collection = db.GetCollection<Movie>("movies");
+                var movie = new Movie { Name = name};
                 collection.Insert(movie);
             }
         }
 
-        static public void UpdateMovie(Movie movie)
-        {
-            using (var db = new LiteDatabase(@"WebMoviesDB.db"))
-            {
-                var collection = db.GetCollection<Movie>("movies");
-                collection.Update(movie);
-            }
-        }
+
 
 
     }

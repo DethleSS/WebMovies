@@ -12,32 +12,24 @@ namespace WebMovie.Controllers
     [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
-        
-
-        [HttpGet("[action]")]
+        [HttpGet]
         public List<Movie> Get()
         {
             return WebMoviesDBContext.GetMovie(); 
         }
 
-
         [HttpDelete("{id}")]
-        public void DeleteById(int id)
+        public void Delete(int id)
         {
             WebMoviesDBContext.DeleteMovieById(id);
         }
 
         [HttpPost]
-        public void AddMovie(Movie movie)
+        public void Post(String name)
         {
-            WebMoviesDBContext.AddMovie(movie);
+            WebMoviesDBContext.AddMovie(name);
         }
 
-        [HttpPost]
-        public void UpdateMovie(Movie movie)
-        {
-            WebMoviesDBContext.UpdateMovie(movie);
-        }
 
     }
 }

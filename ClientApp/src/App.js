@@ -1,22 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { useHttp } from './Hooks/http.hook';
-import Movie from './Components/movie'
-import Preloader from './Components/Preloader/preloader'
+import React, { useState, useEffect } from 'react'
+import Movies from './Components/movies'
 function App() {
   const [data, setData] = useState()
 
-useEffect(() => {
-  fetch('api/Movies/Get')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        setData(data)
-      });
-},[])
+  useEffect(async () => {
+    const response = await fetch("/api/Movies", {
+      method: "GET",
+      headers: { "Accept": "application/json" }
+    });
+    const data = await response.json()
+    setData(data)
+    console.log(data)
+  }, [])
 
   return (
     <div>
+      {data ?
+        <div>
+          <Movies key={data} movies={data} />
+        </div>
 
+        : <h1>loading</h1>}
     </div>
   );
 }
