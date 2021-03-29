@@ -12,7 +12,6 @@ function ListMovie() {
     });
     const data = await response.json()
     setData(data)
-    console.log(data)
   }, [])
 
   return (
