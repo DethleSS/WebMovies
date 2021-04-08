@@ -1,14 +1,29 @@
-import react from 'react'
+import {useState, useEffect} from 'react'
 import './infoMovieComponent.css'
 import CancelIcon from '@material-ui/icons/Cancel';
-import { Nav } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 
-const InfoMovieComponent = ({ movie }) => {
+const InfoMovieComponent = () => {
+
+    const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]/g))
+    const [movie, setMovie] = useState()
+
+    useEffect(async () => {
+        const response = await fetch("/api/Movies/" + idMovie, {
+          method: "GET",
+          headers: { "Accept": "application/json" }
+        });
+        const data = await response.json()
+        setMovie(data)
+      }, [])
+
     return (
-
-        <div className="field__info">
+<div>
+      {movie ?
+        <div>
+          <div className="field__info">
             <div className="icon__close">
-                <Nav.Link href="/listMovie"><CancelIcon style={{ fontSize: 60 }} /> </Nav.Link>
+                <NavLink to={"/listMovie"}><CancelIcon style={{ fontSize: 60 }} /> </NavLink>
             </div>
 
             <div className="bg__field" style={{ backgroundImage: `url(${movie.picture})` }} />
@@ -22,6 +37,11 @@ const InfoMovieComponent = ({ movie }) => {
             </div>
             <div className="author__field" style={{ backgroundImage: `url(${movie.author[0].photo})` }} />
         </div>
+        </div>
+
+        : <h1>loading</h1>}
+    </div>
+        
     )
 }
 

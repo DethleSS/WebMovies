@@ -13,8 +13,8 @@ function App() {
           <Redirect to="/listMovie" />
         )} />
         <Route exarc path="/listMovie" component={ListMovie} />
-        <Route exarc path="/infoMovie" component={InfoMovieComponent} />
-        <Route exarc path="/editMovie" component={EditMovie} />
+        <Route exarc path="/infoMovie/:id" component={InfoMovieComponent} />
+        <Route exarc path="/editMovie/:id" component={EditMovie} />
         <Route exarc path="/addNewMovie" component={AddComponentMovie} />
 
       </Switch>

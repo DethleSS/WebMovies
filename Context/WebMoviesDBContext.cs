@@ -11,6 +11,7 @@ namespace WebMovie.Context
 {
     public class WebMoviesDBContext
     {
+
         static public List<Movie> GetMovie()
         {
             using (var db = new LiteDatabase(@"WebMoviesDB.db"))
@@ -19,6 +20,15 @@ namespace WebMovie.Context
 
                 List<Movie> listMovies = new List<Movie>(collection.FindAll());
                 return listMovies;
+            }
+        }
+
+        static public Movie GetMovieById(int id)
+        {
+            using (var db = new LiteDatabase(@"WebMoviesDB.db"))
+            {
+                var collection = db.GetCollection<Movie>("movies");
+                return collection.FindById(id);
             }
         }
 

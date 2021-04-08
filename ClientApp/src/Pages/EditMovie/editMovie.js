@@ -1,19 +1,39 @@
-import react, { useState } from 'react'
+import react, { useState, useEffect } from 'react'
 import { useHttp } from '../../Components/httpHook'
 import CancelIcon from '@material-ui/icons/Cancel';
 import { Nav } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 import './editMovie.css'
-const InfoMovieComponent = ({ movie }) => {
+const InfoMovieComponent = () => {
+    const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]/g))
+    const [movie, setMovie] = useState()
 
-    const [name, setName] = useState(movie.name)
-    const [releaseDate, setReleaseDate] = useState(movie.releaseDate)
-    const [picture, setPicture] = useState(movie.picture)
+    useEffect(async () => {
+        const response = await fetch("/api/Movies/" + idMovie, {
+          method: "GET",
+          headers: { "Accept": "application/json" }
+        });
+        const data = await response.json()
+        setMovie(data)
+        setName(data.name)
+        setReleaseDate(data.releaseDate)
+        setPicture(data.picture)
+        setNameGenre(data.genre[0].nameGenre)
+        setFirstName(data.author[0].firstName)
+        setSecondName(data.author[0].secondName)
+        setPhoto(data.author[0].photo)
+        setId(data.id)
+      }, [])
 
-    const [nameGenre, setNameGenre] = useState(movie.genre[0].nameGenre)
-    const [firstName, setFirstName] = useState(movie.author[0].firstName)
-    const [secondName, setSecondName] = useState(movie.author[0].secondName)
-    const [photo, setPhoto] = useState(movie.author[0].photo)
-    const [id, setId] = useState(movie.id)
+    const [name, setName] = useState()
+    const [releaseDate, setReleaseDate] = useState()
+    const [picture, setPicture] = useState()
+
+    const [nameGenre, setNameGenre] = useState()
+    const [firstName, setFirstName] = useState()
+    const [secondName, setSecondName] = useState()
+    const [photo, setPhoto] = useState()
+    const [id, setId] = useState()
 
     const [form, setForm] = useState({
 
@@ -40,7 +60,7 @@ const InfoMovieComponent = ({ movie }) => {
     const { loading, request, error, clearError } = useHttp()
 
     async function editMovie() {
-        form._id = id
+        form.id = id
         form.Genre[0].NameGenre = nameGenre
         form.Author[0].FirstName = firstName
         form.Author[0].SecondName = secondName
@@ -59,9 +79,12 @@ const InfoMovieComponent = ({ movie }) => {
     }
 
     return (
-        <div className="field__info_">
+        <div>
+      {movie ?
+        <div>
+          <div className="field__info_">
             <div className="icon__close_">
-                <Nav.Link href="/listMovie"><CancelIcon style={{ fontSize: 60 }} /> </Nav.Link>
+                <NavLink to={"/listMovie"}><CancelIcon style={{ fontSize: 60 }} /> </NavLink>
             </div>
             <input
                 placeholder={name}
@@ -94,8 +117,13 @@ const InfoMovieComponent = ({ movie }) => {
                 onChange={e => setNameGenre(e.target.value)}
             /><p />
 
-            <Nav.Link href="/listMovie"><button onClick={editMovie}>Edit Movie</button></Nav.Link>
+            <NavLink to={"/listMovie"}><button onClick={editMovie}>Edit Movie</button></NavLink>
         </div>
+        </div>
+
+        : <h1>loading</h1>}
+    </div>
+        
     )
 }
 

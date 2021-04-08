@@ -19,6 +19,12 @@ namespace WebMovie.Controllers
             return WebMoviesDBContext.GetMovie(); 
         }
 
+        [HttpGet("{id}")]
+        public Movie GetById(int id)
+        {
+            return WebMoviesDBContext.GetMovieById(id);
+        }
+
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

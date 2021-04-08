@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useHttp } from '../../Components/httpHook'
 import { Nav } from 'react-bootstrap'
-
+import { NavLink } from 'react-router-dom'
+import CancelIcon from '@material-ui/icons/Cancel';
 
 
 const AddNewMovieTemplate = ({length}) => {
@@ -60,6 +61,9 @@ const AddNewMovieTemplate = ({length}) => {
 
     return (
         <div>
+            <div className="icon__close_">
+                <NavLink to={"/listMovie"}><CancelIcon style={{ fontSize: 60 }} /> </NavLink>
+            </div>
             <input
                 placeholder="Enter Name"
                 id="Name"
@@ -112,7 +116,7 @@ const AddNewMovieTemplate = ({length}) => {
                 onChange={e => setNameGenre(e.target.value)}
             /><p/>
             
-        <Nav.Link href="/listMovie"><button onClick={AddMovie}>Add movie</button></Nav.Link>
+        <NavLink to={"/listMovie"}><button onClick={AddMovie}>Add movie</button></NavLink>
         </div>
     )
 }
