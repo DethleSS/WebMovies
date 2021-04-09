@@ -13,36 +13,40 @@ namespace WebMovie.Controllers
     [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
+        readonly IRepository db;
+
+        public MoviesController()
+        {
+            db = new DBLiteMovieRepository();
+        }
         [HttpGet]
         public List<Movie> Get()
         {
-            return WebMoviesDBContext.GetMovie(); 
+            return db.GetMovies();          
         }
 
         [HttpGet("{id}")]
         public Movie GetById(int id)
         {
-            return WebMoviesDBContext.GetMovieById(id);
+            return db.GetMovieById(id);
         }
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            WebMoviesDBContext.DeleteMovieById(id);
+            db.DeleteMovieById(id);
         }
 
         [HttpPost]
         public void AddMovie([FromBody]Movie movie)
         {
-            WebMoviesDBContext.AddMovie(movie);
-
+            db.AddMovie(movie);
         }
 
         [HttpPut]
         public void UpdateMovie([FromBody]Movie movie)
         {
-            WebMoviesDBContext.UpdateMovie(movie);
-
+            db.UpdateMovie(movie);
         }
 
     }

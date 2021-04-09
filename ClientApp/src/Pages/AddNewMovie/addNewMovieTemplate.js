@@ -116,7 +116,7 @@ const AddNewMovieTemplate = ({length}) => {
                 onChange={e => setNameGenre(e.target.value)}
             /><p/>
             
-        <NavLink to={"/listMovie"}><button onClick={AddMovie}>Add movie</button></NavLink>
+        <Nav.Link href="/listMovie"><button onClick={AddMovie}>Add movie</button></Nav.Link>
         </div>
     )
 }
