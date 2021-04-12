@@ -95,7 +95,7 @@
     background-blend-mode: overlay;
 }
 
-.text__place{
+.text__release-Date{
     font-family: Inter;
     font-style: normal;
     font-weight: 600;
@@ -109,7 +109,7 @@
     margin-bottom: -15px;
 }
 
-.text__country{
+.text__name-Movie{
     font-family: Inter;
     font-style: normal;
     font-weight: 600;

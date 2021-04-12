@@ -34,8 +34,8 @@ const Movie = ({ movie }) => {
                     <NavLink to={`/infoMovie/${movie.id}`}><SearchIcon className="icon__search" style={{ fontSize: 60 }}/></NavLink>
                     <DeleteOutlinedIcon className="icon__delete" onClick={() => DeleteItem(movie.id)} style={{ fontSize: 60 }} /><p />
                     <div className="field__text">
-                        <h1 className="text__place">{movie.name}</h1>
-                        <h2 className="text__country">{movie.releaseDate}</h2>
+                        <h1 className="text__name-Movie">{movie.name}</h1>
+                        <h2 className="text__release-Date">{movie.releaseDate}</h2>
                     </div>
                 </div>
     )
