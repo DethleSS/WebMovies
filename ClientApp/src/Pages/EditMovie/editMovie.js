@@ -5,7 +5,7 @@ import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import './editMovie.css'
 const InfoMovieComponent = () => {
-    const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]/g))
+    const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]+/g))
     const [movie, setMovie] = useState()
 
     useEffect(async () => {

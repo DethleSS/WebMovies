@@ -3,9 +3,10 @@ import { useHttp } from '../../Components/httpHook'
 import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import CancelIcon from '@material-ui/icons/Cancel';
+import { connect } from 'react-redux'
+import { createMovie } from '../../Store/ListMovie/action'
 
-
-const AddNewMovieTemplate = ({length}) => {
+const AddNewMovieTemplate = ({ length }) => {
 
     const [form, setForm] = useState({
 
@@ -35,7 +36,7 @@ const AddNewMovieTemplate = ({length}) => {
     const [Photo, setPhoto] = useState()
 
 
-    
+
 
 
     const { loading, request, error, clearError } = useHttp()
@@ -45,8 +46,10 @@ const AddNewMovieTemplate = ({length}) => {
         form.Author[0].FirstName = FirstName
         form.Author[0].SecondName = SecondName
         form.Author[0].Photo = Photo
+        createMovie({id: 1})
         try {
             const data = await request('/api/Movies', 'POST', { ...form })
+            
             console.log(1, data)
         } catch (e) {
 
@@ -55,7 +58,7 @@ const AddNewMovieTemplate = ({length}) => {
 
     const changeHandler = event => {
         setForm({ ...form, [event.target.name]: event.target.value });
-        
+
     }
 
 
@@ -84,7 +87,7 @@ const AddNewMovieTemplate = ({length}) => {
                 type="text"
                 name="Picture"
                 onChange={changeHandler}
-            /><p/>
+            /><p />
             <h1>Author</h1>
             <input
                 placeholder="Enter FirstName"
@@ -114,11 +117,15 @@ const AddNewMovieTemplate = ({length}) => {
                 type="text"
                 name="NameGenre"
                 onChange={e => setNameGenre(e.target.value)}
-            /><p/>
-            
-        <Nav.Link href="/listMovie"><button onClick={AddMovie}>Add movie</button></Nav.Link>
+            /><p />
+
+            <Nav.Link ><button onClick={AddMovie}>Add movie</button></Nav.Link>
         </div>
     )
 }
 
-export default AddNewMovieTemplate
+const MapDispatchToProps = {
+    createMovie
+}
+
+export default connect(null, MapDispatchToProps)(AddNewMovieTemplate)

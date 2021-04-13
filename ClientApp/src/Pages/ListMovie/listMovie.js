@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import Movies from '../../Components/movies'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchMovie } from '../../Store/ListMovie/action'
 
 
 function ListMovie() {
-  const [data, setData] = useState()
+  const dispatch = useDispatch()
+  const data = useSelector(state => state.movies.movies)
 
   useEffect(async () => {
-    const response = await fetch("/api/Movies", {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-    const data = await response.json()
-    setData(data)
+    dispatch(fetchMovie())
   }, [])
 
   return (
     <div>
+      
       {data ?
         <div>
           <Movies key={data} movies={data} />

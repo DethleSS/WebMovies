@@ -16,7 +16,6 @@ function App() {
         <Route exarc path="/infoMovie/:id" component={InfoMovieComponent} />
         <Route exarc path="/editMovie/:id" component={EditMovie} />
         <Route exarc path="/addNewMovie" component={AddComponentMovie} />
-
       </Switch>
     </Router>
   );

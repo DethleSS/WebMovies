@@ -1,0 +1,2 @@
+export const CREATE_MOVIE = 'MOVIE/CREATE_MOVIE'
+export const FETCH_MOVIE = 'MOVIE/FETCH_MOVIE'
