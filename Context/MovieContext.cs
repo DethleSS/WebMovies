@@ -7,6 +7,7 @@ using WebMovie.Models;
 using System.Configuration;
 using LiteDB;
 using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace WebMovie.Context
 {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebMovie.Context;
 using WebMovie.Models;
 using LiteDB;
+using Microsoft.Extensions.Configuration;
 
 namespace WebMovie.Controllers
 {
@@ -15,9 +16,9 @@ namespace WebMovie.Controllers
     {
         readonly IRepository db;
 
-        public MoviesController()
+        public MoviesController(IConfiguration configuration)
         {
-            db = new DBLiteMovieRepository();
+            db = new DBLiteMovieRepository(configuration);
         }
         [HttpGet]
         public List<Movie> Get()
