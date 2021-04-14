@@ -2,6 +2,7 @@ import React from 'react'
 import './componentMovie.css'
 import AddIcon from '@material-ui/icons/Add';
 import {NavLink} from 'react-router-dom'
+
 const AddComponentMovie = () => {
 
     return (

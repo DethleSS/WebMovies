@@ -1,17 +1,21 @@
 import react, { useState, useEffect } from 'react'
-import { useHttp } from '../../Components/httpHook'
 import CancelIcon from '@material-ui/icons/Cancel';
-import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import './editMovie.css'
-const InfoMovieComponent = () => {
+import { useDispatch } from 'react-redux';
+import { EditMovies } from '../../Store/Movie/action';
+import { useHttp } from '../../Components/httpHook';
+
+const EditMovieComponent = () => {
     const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]+/g))
     const [movie, setMovie] = useState()
+    const { loading, request, error, clearError } = useHttp()
+    const dispatch = useDispatch()
 
     useEffect(async () => {
         const response = await fetch("/api/Movies/" + idMovie, {
-          method: "GET",
-          headers: { "Accept": "application/json" }
+            method: "GET",
+            headers: { "Accept": "application/json" }
         });
         const data = await response.json()
         setMovie(data)
@@ -23,7 +27,7 @@ const InfoMovieComponent = () => {
         setSecondName(data.author[0].secondName)
         setPhoto(data.author[0].photo)
         setId(data.id)
-      }, [])
+    }, [])
 
     const [name, setName] = useState()
     const [releaseDate, setReleaseDate] = useState()
@@ -57,7 +61,7 @@ const InfoMovieComponent = () => {
         Picture: picture
     })
 
-    const { loading, request, error, clearError } = useHttp()
+
 
     async function editMovie() {
         form.id = id
@@ -68,9 +72,6 @@ const InfoMovieComponent = () => {
         form.Name = name
         form.ReleaseDate = releaseDate
         form.Picture = picture
-
-        console.log(form)
-
         try {
             const data = await request('/api/Movies', 'PUT', { ...form })
         } catch (e) {
@@ -80,51 +81,51 @@ const InfoMovieComponent = () => {
 
     return (
         <div>
-      {movie ?
-        <div>
-          <div className="field__info_">
-            <div className="icon__close_">
-                <NavLink to={"/listMovie"}><CancelIcon style={{ fontSize: 60 }} /> </NavLink>
-            </div>
-            <input
-                placeholder={name}
-                onChange={e => setName(e.target.value)}
-            />
-            <input
-                placeholder={releaseDate}
-                onChange={e => setReleaseDate(e.target.value)}
-            />
-            <input
-                placeholder={picture}
-                onChange={e => setPicture(e.target.value)}
-            /><p />
-            <h1>Author</h1>
-            <input
-                placeholder={firstName}
-                onChange={e => setFirstName(e.target.value)}
-            />
-            <input
-                placeholder={secondName}
-                onChange={e => setSecondName(e.target.value)}
-            />
-            <input
-                placeholder={photo}
-                onChange={e => setPhoto(e.target.value)}
-            />
-            <h1>Genre</h1>
-            <input
-                placeholder={nameGenre}
-                onChange={e => setNameGenre(e.target.value)}
-            /><p />
+            {movie ?
+                <div>
+                    <div className="field__info_">
+                        <div className="icon__close_">
+                            <NavLink to={"/listMovie"}><CancelIcon style={{ fontSize: 60 }} /> </NavLink>
+                        </div>
+                        <input
+                            placeholder={name}
+                            onChange={e => setName(e.target.value)}
+                        />
+                        <input
+                            placeholder={releaseDate}
+                            onChange={e => setReleaseDate(e.target.value)}
+                        />
+                        <input
+                            placeholder={picture}
+                            onChange={e => setPicture(e.target.value)}
+                        /><p />
+                        <h1>Author</h1>
+                        <input
+                            placeholder={firstName}
+                            onChange={e => setFirstName(e.target.value)}
+                        />
+                        <input
+                            placeholder={secondName}
+                            onChange={e => setSecondName(e.target.value)}
+                        />
+                        <input
+                            placeholder={photo}
+                            onChange={e => setPhoto(e.target.value)}
+                        />
+                        <h1>Genre</h1>
+                        <input
+                            placeholder={nameGenre}
+                            onChange={e => setNameGenre(e.target.value)}
+                        /><p />
 
-            <NavLink to={"/listMovie"}><button onClick={editMovie}>Edit Movie</button></NavLink>
-        </div>
+                        <NavLink to={"/listMovie"}><button onClick={editMovie}>Edit Movie</button></NavLink>
+                    </div>
+                </div>
+
+                : <h1>loading</h1>}
         </div>
 
-        : <h1>loading</h1>}
-    </div>
-        
     )
 }
 
-export default InfoMovieComponent
+export default EditMovieComponent

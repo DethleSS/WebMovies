@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import Movies from '../../Components/movies'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchMovie } from '../../Store/ListMovie/action'
-
+import { fetchMovies } from '../../Store/Movie/action'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 function ListMovie() {
   const dispatch = useDispatch()
   const data = useSelector(state => state.movies.movies)
+  const loading = useSelector(state => state.app.loading)
 
   useEffect(async () => {
-    dispatch(fetchMovie())
+    dispatch(fetchMovies())
   }, [])
 
-  return (
-    <div>
-      
-      {data ?
-        <div>
-          <Movies key={data} movies={data} />
-        </div>
+  if (loading) {
+    return (
+      <div>
+        <h1>loading...</h1>
+        <CircularProgress />
+      </div>
 
-        : <h1>loading</h1>}
-    </div>
-  );
+    )
+  }
+  return <Movies key={data} movies={data} />
 }
 
 export default ListMovie;

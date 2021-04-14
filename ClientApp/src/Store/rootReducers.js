@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import { movieReducer } from "./ListMovie/reducers";
+import { appReducer } from "./App/reducers";
+import { movieReducer } from "./Movie/reducers";
 
 export const rootReducer = combineReducers({
-    movies: movieReducer 
+    movies: movieReducer,
+    app: appReducer
 })

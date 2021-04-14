@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import CancelIcon from '@material-ui/icons/Cancel';
 import { connect } from 'react-redux'
-import { createMovie } from '../../Store/ListMovie/action'
+import { createMovie } from '../../Store/Movie/action'
 
 const AddNewMovieTemplate = ({ length }) => {
 
@@ -46,11 +46,9 @@ const AddNewMovieTemplate = ({ length }) => {
         form.Author[0].FirstName = FirstName
         form.Author[0].SecondName = SecondName
         form.Author[0].Photo = Photo
-        createMovie({id: 1})
+ 
         try {
             const data = await request('/api/Movies', 'POST', { ...form })
-            
-            console.log(1, data)
         } catch (e) {
 
         }
@@ -119,7 +117,7 @@ const AddNewMovieTemplate = ({ length }) => {
                 onChange={e => setNameGenre(e.target.value)}
             /><p />
 
-            <Nav.Link ><button onClick={AddMovie}>Add movie</button></Nav.Link>
+            <Nav.Link href="/listMovie"><button onClick={AddMovie}>Add movie</button></Nav.Link>
         </div>
     )
 }

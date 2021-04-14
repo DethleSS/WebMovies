@@ -8,15 +8,15 @@ namespace WebMovie.Context
     public class DBLiteMovieRepository : IRepository
     {
         private readonly LiteDatabase db;
-
-        private IMovieContext dbContext;
+        private readonly IMovieContext MovieContext = new MovieContext("WebMoviesDB.db");
 
         private ILiteCollection<Movie> collection;
         public DBLiteMovieRepository()
         {
-            this.dbContext = new MovieContext();
-            db = dbContext.GetDb();
+
+            db = MovieContext.GetDb();
             this.collection = this.db.GetCollection<Movie>("movies");
+            
         }
 
         public List<Movie> GetMovies()
@@ -27,7 +27,7 @@ namespace WebMovie.Context
             }
             finally
             {
-                dbContext.Dispose();
+                MovieContext.Dispose();
             }
                 
         }
@@ -40,7 +40,7 @@ namespace WebMovie.Context
             }
             finally
             {
-                dbContext.Dispose();
+                MovieContext.Dispose();
             }
                 
         }
@@ -53,7 +53,7 @@ namespace WebMovie.Context
             }
             finally
             {
-                 dbContext.Dispose();
+                MovieContext.Dispose();
             }
         }
 
@@ -65,7 +65,7 @@ namespace WebMovie.Context
             }
             finally
             {
-                dbContext.Dispose();
+                MovieContext.Dispose();
             }
                 
         }
@@ -78,7 +78,7 @@ namespace WebMovie.Context
             }
             finally
             {
-                dbContext.Dispose();
+                MovieContext.Dispose();
             }
                 
         }

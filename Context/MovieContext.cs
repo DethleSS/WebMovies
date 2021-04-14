@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using WebMovie.Models;
 using System.Configuration;
 using LiteDB;
+using System.Text;
 
 namespace WebMovie.Context
 {
     public class MovieContext : IMovieContext
     {
         private static object syncRoot = new Object();
-
+        private string connectionstring;
         private LiteDatabase db;
         private bool disposed = false;
 
@@ -32,8 +33,12 @@ namespace WebMovie.Context
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }      
-        public MovieContext(){ }
+        }
+        public MovieContext() { }
+        public MovieContext(string connectionstring) 
+        {
+            this.connectionstring = connectionstring;
+        }
         public LiteDatabase GetDb()
         {
             if (db == null)
@@ -41,7 +46,8 @@ namespace WebMovie.Context
                 lock (syncRoot)
                 {
                     if (db == null)
-                        db = new LiteDatabase(@"WebMoviesDB.db");
+
+                        db = new LiteDatabase(connectionstring);
                 }
             }
             return db;
