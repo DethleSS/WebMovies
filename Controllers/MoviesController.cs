@@ -8,6 +8,8 @@ using WebMovie.Context;
 using WebMovie.Models;
 using LiteDB;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using WebMovie.Settings;
 
 namespace WebMovie.Controllers
 {
@@ -15,10 +17,11 @@ namespace WebMovie.Controllers
     public class MoviesController : ControllerBase
     {
         readonly IRepository db;
-
-        public MoviesController(IConfiguration configuration)
+        public MoviesController(IOptionsSnapshot<MovieSettings> settings)
         {
-            db = new DBLiteMovieRepository(configuration);
+
+            db = new DBLiteMovieRepository(settings.Get(MovieSettings.LiteDb).connectionString);
+
         }
         [HttpGet]
         public List<Movie> Get()

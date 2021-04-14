@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebMovie.Context;
 using WebMovie.Models;
+using WebMovie.Settings;
 
 namespace WebMovie
 {
@@ -22,8 +23,8 @@ namespace WebMovie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
-            services.AddSingleton<IMovieContext>(sp => new MovieContext("@WebMoviesDB.db"));
+            services.Configure<MovieSettings>(MovieSettings.LiteDb, Configuration.GetSection("Settings:LiteDB"));
+            services.AddSingleton<IMovieContext>(sp => new MovieContext());
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

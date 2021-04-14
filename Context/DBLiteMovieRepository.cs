@@ -4,6 +4,7 @@ using LiteDB;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using WebMovie.Models;
+using WebMovie.Settings;
 
 namespace WebMovie.Context
 {
@@ -12,10 +13,10 @@ namespace WebMovie.Context
         private readonly LiteDatabase db;
         private readonly IMovieContext MovieContext;
         private ILiteCollection<Movie> collection;
-        public DBLiteMovieRepository(IConfiguration configuration)
+        public DBLiteMovieRepository(string connectionstring)
         {
 
-            MovieContext = new MovieContext(configuration.GetValue<string>("LiteDbConnectionString"));
+            MovieContext = new MovieContext(connectionstring);
             db = MovieContext.GetDb();
             this.collection = this.db.GetCollection<Movie>("movies");
             
