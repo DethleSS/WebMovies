@@ -10,18 +10,18 @@ namespace WebMovie.ModelsAuth
     {
         public Guid Id { get; set; }
 
-        [Required]
-        public string UEmail { get; set; }
-        [Required]
-        public string UPassword { get; set; }
-        [Required]
-        public string UFirstName { get; set; }
-        [Required]
-        public string USecondName { get; set; }
-        [Required]
-        public string UUserName { get; set; }
-        [Required]
-        public int URole { get; set; }
+
+        public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string SecondName { get; set; }
+
+        public string UserName { get; set; }
+
+        public List<UserRole> UserRole { get; set; }
 
     }
 }

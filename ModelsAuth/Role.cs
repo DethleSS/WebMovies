@@ -9,9 +9,8 @@ namespace WebMovie.ModelsAuth
     public class Role
     {
         [Required]
-        public Guid Id { get; set; }
-
-        [Required]
-        public string RRole { get; set; } 
+        public Guid Id { get; set; }      
+        public List<Role> UserRoles { get; set; }
+        public string NameRole { get; set; } 
     }
 }

@@ -24,10 +24,13 @@ namespace WebMovie.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("RRole")
-                        .IsRequired();
+                    b.Property<string>("NameRole");
+
+                    b.Property<Guid?>("RoleId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Role");
                 });
@@ -37,22 +40,15 @@ namespace WebMovie.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UEmail")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
-                    b.Property<string>("UFirstName")
-                        .IsRequired();
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("UPassword")
-                        .IsRequired();
+                    b.Property<string>("Password");
 
-                    b.Property<int>("URole");
+                    b.Property<string>("SecondName");
 
-                    b.Property<string>("USecondName")
-                        .IsRequired();
-
-                    b.Property<string>("UUserName")
-                        .IsRequired();
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -66,11 +62,37 @@ namespace WebMovie.Migrations
 
                     b.Property<int>("RoleId");
 
+                    b.Property<Guid?>("RoleId1");
+
                     b.Property<int>("UserId");
+
+                    b.Property<Guid?>("UserId1");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("UserId1");
+
                     b.ToTable("UserRole");
+                });
+
+            modelBuilder.Entity("WebMovie.ModelsAuth.Role", b =>
+                {
+                    b.HasOne("WebMovie.ModelsAuth.Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId");
+                });
+
+            modelBuilder.Entity("WebMovie.ModelsAuth.UserRole", b =>
+                {
+                    b.HasOne("WebMovie.ModelsAuth.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("WebMovie.ModelsAuth.User", "User")
+                        .WithMany("UserRole")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }
