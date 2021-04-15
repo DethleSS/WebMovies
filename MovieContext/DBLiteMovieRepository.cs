@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using WebMovie.Models;
 using WebMovie.Settings;
 
-namespace WebMovie.Context
+namespace WebMovie.MovieContext
 {
     public class DBLiteMovieRepository : IRepository
     {

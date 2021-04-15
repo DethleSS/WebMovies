@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebMovie.Context;
-using WebMovie.Models;
+using WebMovie.AuthContext;
 using WebMovie.Settings;
 
 namespace WebMovie
 {
+
     public class Startup 
     {
         public Startup(IConfiguration configuration)
@@ -23,8 +23,9 @@ namespace WebMovie
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AuthSettings>(AuthSettings.MsSql, Configuration.GetSection("Settings:MsSql"));
             services.Configure<MovieSettings>(MovieSettings.LiteDb, Configuration.GetSection("Settings:LiteDB"));
-            services.AddSingleton<IMovieContext>(sp => new MovieContext());
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -34,6 +35,7 @@ namespace WebMovie
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
 
         }
 

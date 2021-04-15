@@ -9,7 +9,7 @@ using LiteDB;
 using System.Text;
 using Microsoft.Extensions.Options;
 
-namespace WebMovie.Context
+namespace WebMovie.MovieContext
 {
     public class MovieContext : IMovieContext
     {

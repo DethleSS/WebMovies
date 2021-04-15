@@ -8,12 +8,12 @@ namespace WebMovie.ModelsAuth
 {
     public class User
     {
-        [Required]
-        public Guid UId { get; set; }
+        public Guid Id { get; set; }
+
         [Required]
         public string UEmail { get; set; }
         [Required]
-        public int UPassword { get; set; }
+        public string UPassword { get; set; }
         [Required]
         public string UFirstName { get; set; }
         [Required]

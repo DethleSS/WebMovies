@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebMovie.Context;
+using WebMovie.MovieContext;
 using WebMovie.Models;
 using LiteDB;
 using Microsoft.Extensions.Configuration;

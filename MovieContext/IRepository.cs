@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebMovie.Models;
 
-namespace WebMovie.Context
+namespace WebMovie.MovieContext
 {
     interface IRepository 
     {
