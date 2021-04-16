@@ -25,6 +25,12 @@ namespace WebMovie.Controllers
             return db.GetUsers();
         }
 
+        [HttpPost]
+        public UserLogin UserLogin([FromBody] User user)
+        {
+            return db.UserLogin(user);
+        }
+
 
     }
 }

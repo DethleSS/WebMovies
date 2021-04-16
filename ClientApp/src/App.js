@@ -5,9 +5,34 @@ import InfoMovieComponent from './Pages/InfoMovie/infoMovieComponent'
 import AddComponentMovie from './Pages/AddNewMovie/addNewMovieTemplate'
 import EditMovie from './Pages/EditMovie/editMovie'
 import Authorization from './Pages/Authorization/Authorization'
-function App() {
+import Profile from './Pages/Authorization/Profile/Profile'
+import { useAuth } from './Components/Hook/authHook'
+import { AuthContext } from './Components/Context/AuthContext'
 
-  return (
+function Greeting(props) {
+  const { usertoken } = useAuth()
+  const isAuthenticated = !!usertoken
+  if (isAuthenticated) {
+
+    return <Route exact path="/authorization" component={Profile} />
+  }
+  return <Route exact path="/authorization" component={Authorization} />
+}
+
+function App() {
+  const { usertoken, login, logout, userID } = useAuth()
+  const isAuthenticated = !!usertoken
+  return (<>
+    <AuthContext.Provider value={{
+      usertoken, login, logout, userID, isAuthenticated
+    }}>
+      <Router>
+        <Switch>
+          {Greeting(isAuthenticated)}
+        </Switch>
+      </Router>
+
+    </AuthContext.Provider>
     <Router>
       <Switch>
         <Route exact path="/" render={() => (
@@ -17,9 +42,10 @@ function App() {
         <Route exarc path="/infoMovie/:id" component={InfoMovieComponent} />
         <Route exarc path="/editMovie/:id" component={EditMovie} />
         <Route exarc path="/addNewMovie" component={AddComponentMovie} />
-        <Route exarc path="/authorization" component={Authorization} />
+
       </Switch>
     </Router>
+  </>
   );
 }
 
