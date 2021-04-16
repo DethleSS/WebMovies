@@ -9,7 +9,7 @@ using WebMovie.AuthContext;
 
 namespace WebMovie.Migrations
 {
-    [DbContext(typeof(AuthorizaionContext))]
+    [DbContext(typeof(AuthorizationContext))]
     [Migration("20210415120914_Initial")]
     partial class Initial
     {

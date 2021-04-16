@@ -1,4 +1,3 @@
-import { useHttp } from '../../Components/httpHook';
 import { hideLoader, showLoader } from '../App/action';
 import {CREATE_MOVIE, FETCH_MOVIES, FETCH_MOVIE_BY_ID, DELETE_MOVIE_BY_ID, EDIT_MOVIE} from './types'
 
@@ -56,7 +55,7 @@ export function deleteMoviesById(idMovie) {
 export function EditMovies(movie) {
 
     return async dispatch => {
-        const response = await fetch('/api/Movies', {method: 'PUT', ...movie, "Accept": "application/json"})
+        const response = await fetch('/api/Movies', {method: 'PUT', body: {...movie}, "Accept": "application/json"})
         const json = await response.json()
         dispatch({type: EDIT_MOVIE, payload: json})    
     }

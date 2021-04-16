@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Movies from '../../Components/movies'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchMovies } from '../../Store/Movie/action'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { NavLink } from 'react-router-dom'
 
 function ListMovie() {
   const dispatch = useDispatch()
@@ -22,7 +23,17 @@ function ListMovie() {
 
     )
   }
-  return <Movies key={data} movies={data} />
+  return (
+    <div>
+      <NavLink to={'/authorization'}>Auth</NavLink>
+      <Movies key={data} movies={data} />
+    </div>
+  )
+
+
+
 }
+
+
 
 export default ListMovie;

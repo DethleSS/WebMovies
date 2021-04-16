@@ -34,11 +34,6 @@ const AddNewMovieTemplate = ({ length }) => {
     const [FirstName, setFirstName] = useState()
     const [SecondName, setSecondName] = useState()
     const [Photo, setPhoto] = useState()
-
-
-
-
-
     const { loading, request, error, clearError } = useHttp()
 
     async function AddMovie() {
@@ -122,8 +117,4 @@ const AddNewMovieTemplate = ({ length }) => {
     )
 }
 
-const MapDispatchToProps = {
-    createMovie
-}
-
-export default connect(null, MapDispatchToProps)(AddNewMovieTemplate)
+export default AddNewMovieTemplate;

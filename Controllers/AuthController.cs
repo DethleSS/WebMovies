@@ -1,16 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebMovie.AuthContext;
+using WebMovie.ModelsAuth;
+using WebMovie.Settings;
 
 namespace WebMovie.Controllers
 {
-    public class AuthController : Controller
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
-        public IActionResult Index()
+        DBMsSqlAuthRepository db;
+        public AuthController(IOptionsSnapshot<AuthSettings> settings)
         {
-            return View();
+            db = new DBMsSqlAuthRepository(settings.Get(AuthSettings.MsSql).connectionString);
         }
+
+        [HttpGet]
+        public List<User> GetUsers()
+        {
+            return db.GetUsers();
+        }
+
+
     }
 }

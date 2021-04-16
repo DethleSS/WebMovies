@@ -2,7 +2,7 @@ import react, { useState, useEffect } from 'react'
 import CancelIcon from '@material-ui/icons/Cancel';
 import { NavLink } from 'react-router-dom'
 import './editMovie.css'
-import { useDispatch } from 'react-redux';
+
 import { EditMovies } from '../../Store/Movie/action';
 import { useHttp } from '../../Components/httpHook';
 
@@ -10,7 +10,7 @@ const EditMovieComponent = () => {
     const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]+/g))
     const [movie, setMovie] = useState()
     const { loading, request, error, clearError } = useHttp()
-    const dispatch = useDispatch()
+
 
     useEffect(async () => {
         const response = await fetch("/api/Movies/" + idMovie, {

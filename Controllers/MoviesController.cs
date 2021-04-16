@@ -10,6 +10,7 @@ using LiteDB;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using WebMovie.Settings;
+using WebMovie.AuthContext;
 
 namespace WebMovie.Controllers
 {
@@ -19,7 +20,6 @@ namespace WebMovie.Controllers
         readonly IRepository db;
         public MoviesController(IOptionsSnapshot<MovieSettings> settings)
         {
-
             db = new DBLiteMovieRepository(settings.Get(MovieSettings.LiteDb).connectionString);
 
         }
