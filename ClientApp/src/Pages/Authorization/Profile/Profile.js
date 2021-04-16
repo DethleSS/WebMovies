@@ -15,11 +15,12 @@ const Profile = () => {
         history.push('/authorization')
         window.location.reload()
     }
-
+    console.log(auth.usertoken)
     return (
         <div>
             <div className="m-5">
                 You are Login
+                
                 <button className="button--click " onClick={logoutHandler}>LogOut</button>
             </div>
 

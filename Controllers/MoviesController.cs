@@ -11,9 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using WebMovie.Settings;
 using WebMovie.AuthContext;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebMovie.Controllers
 {
+
     [Route("api/[controller]")]
     public class MoviesController : ControllerBase
     {
