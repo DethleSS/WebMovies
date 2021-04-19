@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using WebMovie.Settings;
 using WebMovie.AuthContext;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace WebMovie.Controllers
 {
@@ -20,14 +21,17 @@ namespace WebMovie.Controllers
     public class MoviesController : ControllerBase
     {
         readonly IRepository db;
+        private Guid UserId => Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
         public MoviesController(IOptionsSnapshot<MovieSettings> settings)
         {
             db = new DBLiteMovieRepository(settings.Get(MovieSettings.LiteDb).connectionString);
 
         }
         [HttpGet]
+
         public List<Movie> Get()
         {
+            
             return db.GetMovies();          
         }
 

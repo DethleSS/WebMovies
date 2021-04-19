@@ -6,13 +6,11 @@ import AddComponentMovie from './Pages/AddNewMovie/addNewMovieTemplate'
 import EditMovie from './Pages/EditMovie/editMovie'
 import Authorization from './Pages/Authorization/Authorization'
 import Profile from './Pages/Authorization/Profile/Profile'
-import { useAuth } from './Components/Hook/authHook'
+import { UseAuth } from './Components/Hook/authHook'
 import { AuthContext } from './Components/Context/AuthContext'
 
-function Greeting(props) {
-  const { usertoken } = useAuth()
-  const isAuthenticated = !!usertoken
-  if (isAuthenticated) {
+function Greeting(token) {
+  if (token) {
 
     return <Route exact path="/authorization" component={Profile} />
   }
@@ -20,23 +18,23 @@ function Greeting(props) {
 }
 
 function App() {
-  const { usertoken, login, logout, userID } = useAuth()
-  const isAuthenticated = !!usertoken
+  const { usertoken, login, logout, userID } = UseAuth();
+  const token = usertoken;
   return (<>
     <AuthContext.Provider value={{
-      usertoken, login, logout, userID, isAuthenticated
+      usertoken, login, logout, userID
     }}>
       <Router>
         <Switch>
-          {Greeting(isAuthenticated)}
+          {Greeting(token)}
         </Switch>
       </Router>
 
-    </AuthContext.Provider>
+
     <Router>
       <Switch>
         <Route exact path="/" render={() => (
-          <Redirect to="/listMovie" />
+          <Redirect to="/authorization" />
         )} />
         <Route exarc path="/listMovie" component={ListMovie} />
         <Route exarc path="/infoMovie/:id" component={InfoMovieComponent} />
@@ -45,6 +43,7 @@ function App() {
 
       </Switch>
     </Router>
+    </AuthContext.Provider>
   </>
   );
 }

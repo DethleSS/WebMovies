@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import { AuthContext } from '../../../Components/Context/AuthContext'
-import { useAuth } from '../../../Components/Hook/authHook'
+
 import './Profile.css'
 
 const Profile = () => {
     const history = useHistory()
     const auth = useContext(AuthContext)
-    const info = useAuth()
+
 
     const logoutHandler = event => {
         event.preventDefault()
@@ -18,9 +19,9 @@ const Profile = () => {
     console.log(auth.usertoken)
     return (
         <div>
+            <NavLink to={'/listMovie'}><button className="button--click">To Movies</button></NavLink>
             <div className="m-5">
-                You are Login
-                
+                You are Login       
                 <button className="button--click " onClick={logoutHandler}>LogOut</button>
             </div>
 

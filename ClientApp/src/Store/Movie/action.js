@@ -8,12 +8,13 @@ export function createMovie(movie) {
     }
 }
 
-export function fetchMovies() {
+export function fetchMovies(token) {
     return async dispatch => {
         dispatch(showLoader())
         const response = await fetch("/api/Movies", {
             method: "GET",
-            headers: { "Accept": "application/json" }
+            headers: { "Accept": "application/json", Authorization: `Bearer ${token}` },
+            
           });
         const json = await response.json()
         dispatch({type: FETCH_MOVIES, payload: json})

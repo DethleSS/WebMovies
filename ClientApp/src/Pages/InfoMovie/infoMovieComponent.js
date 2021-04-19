@@ -1,21 +1,23 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import './infoMovieComponent.css'
 import CancelIcon from '@material-ui/icons/Cancel';
 import { NavLink } from 'react-router-dom'
+import { AuthContext } from '../../Components/Context/AuthContext';
 
 const InfoMovieComponent = () => {
 
     const [idMovie, setIdMovie] = useState(document.location.pathname.match(/[0-9]+/g))
     const [movie, setMovie] = useState()
-
+    const auth = useContext(AuthContext)
+    
     useEffect(async () => {
         const response = await fetch("/api/Movies/" + idMovie, {
           method: "GET",
-          headers: { "Accept": "application/json" }
+          headers: { "Accept": "application/json", Authorization: `Bearer ${auth.usertoken}`  }
         });
         const data = await response.json()
         setMovie(data)
-      }, [])
+      }, [auth])
 
     return (
 <div>

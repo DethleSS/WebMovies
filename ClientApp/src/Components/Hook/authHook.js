@@ -2,7 +2,7 @@ import {useState, useCallback, useEffect} from 'react'
 
 const storageName = 'userData'
 
-export const useAuth = () => {
+export const UseAuth = () => {
   const [usertoken, setToken] = useState(null)
   const [ready, setReady] = useState(false)
   const [userID, setUserId] = useState(null)

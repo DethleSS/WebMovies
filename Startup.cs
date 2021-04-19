@@ -28,28 +28,40 @@ namespace WebMovie
         {
             services.Configure<AuthSettings>(AuthSettings.MsSql, Configuration.GetSection("Settings:MsSql"));
             services.Configure<MovieSettings>(MovieSettings.LiteDb, Configuration.GetSection("Settings:LiteDB"));
-
-
+            services.Configure<AuthTokenOptions>(Configuration.GetSection("Auth"));
+            var authTokenOption = Configuration.GetSection("Auth").Get<AuthTokenOptions>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var key = Encoding.ASCII.GetBytes("You have a deep, dark fear of spiders, circa 1990");
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authTokenOption.Issuer,
+
+                        ValidateAudience = true,
+                        ValidAudience = authTokenOption.Audience,
+
+                        ValidateLifetime = true,
+
+                        IssuerSigningKey = authTokenOption.GetSymmetricSecurityKey(),
+                        ValidateIssuerSigningKey = true
+                    };
+                });
+
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
             });
+            
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -76,11 +88,12 @@ namespace WebMovie
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            
+            app.UseCors();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

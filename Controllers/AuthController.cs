@@ -16,9 +16,9 @@ namespace WebMovie.Controllers
     public class AuthController : ControllerBase
     {
         DBMsSqlAuthRepository db;
-        public AuthController(IOptionsSnapshot<AuthSettings> settings)
+        public AuthController(IOptionsSnapshot<AuthSettings> settings, IOptions<AuthTokenOptions> authOption)
         {
-            db = new DBMsSqlAuthRepository(settings.Get(AuthSettings.MsSql).connectionString);
+            db = new DBMsSqlAuthRepository(settings.Get(AuthSettings.MsSql).connectionString, authOption);
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -23,16 +24,19 @@ namespace WebMovie.AuthContext
     public class DBMsSqlAuthRepository : IAuthRepository
     {
         AuthorizationContext AuthorizaionContext;
+        public IOptions<AuthTokenOptions> TokenOption;
         Microsoft.EntityFrameworkCore.DbSet<User> DbUser;
         Microsoft.EntityFrameworkCore.DbSet<Role> DbRole;
         Microsoft.EntityFrameworkCore.DbSet<UserRole> DbUserRole;
-        public DBMsSqlAuthRepository(string connectionstring)
+        public DBMsSqlAuthRepository(string connectionstring, IOptions<AuthTokenOptions> tokenOption)
         {          
             AuthorizaionContext = new AuthorizationContext(connectionstring);
+            TokenOption = tokenOption;
             DbUser = AuthorizaionContext.User;
             DbRole = AuthorizaionContext.Role;
             DbUserRole = AuthorizaionContext.UserRole;
         }
+
 
         public UserLogin UserLogin(User user)
         {
@@ -41,20 +45,26 @@ namespace WebMovie.AuthContext
             {
                 return null;
             }
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("You have a deep, dark fear of spiders, circa 1990");
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, account.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new UserLogin(tokenHandler.WriteToken(token), account.Id);
+            var authParams = TokenOption.Value;
+            var securityKey = authParams.GetSymmetricSecurityKey();
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>()
+            {
+                new Claim(JwtRegisteredClaimNames.Email, account.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, account.Id.ToString())
+            };
+
+            var token = new JwtSecurityToken(authParams.Issuer,
+                authParams.Audience,
+                claims,
+                expires: DateTime.Now.AddSeconds(authParams.TokenLifeTime),
+                signingCredentials: credentials);
+
+            var tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return new UserLogin(tokenHandler, account.Id);
 
         }
 
