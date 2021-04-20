@@ -24,7 +24,6 @@ function ListMovie() {
   if (loading) {
     return (
       <div>
-        {console.log(auth)}
         <h1>loading...</h1>
         <CircularProgress />
       </div>

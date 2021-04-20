@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebMovie.MovieContext
 {
-    interface IMovieContext 
+    interface MovieContext 
     {
         LiteDatabase GetDb();
-        void Dispose(bool disposing);
         void Dispose();
     }
 }

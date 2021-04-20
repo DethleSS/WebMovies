@@ -11,47 +11,24 @@ using Microsoft.Extensions.Options;
 
 namespace WebMovie.MovieContext
 {
-    public class MovieContext : IMovieContext
+    public class MoviesContext : MovieContext
     {
-        private static object syncRoot = new Object();
         private string connectionstring;
         private LiteDatabase db;
-        private bool disposed = false;
-
-        public virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    db.Dispose();                   
-                }
-            }
-            this.disposed = true;
-        }
 
         public void Dispose()
         {
-            Dispose(true);
+            db.Dispose();
             GC.SuppressFinalize(this);
         }
-        public MovieContext() { }
-        public MovieContext(string connectionstring) 
+        public MoviesContext() { }
+        public MoviesContext(string connectionstring) 
         {
             this.connectionstring = connectionstring;
         }
         public LiteDatabase GetDb()
         {
-            if (db == null)
-            {
-                lock (syncRoot)
-                {
-                    if (db == null)
-
-                        db = new LiteDatabase(connectionstring);
-                }
-            }
-            return db;
+            return new LiteDatabase(@connectionstring);
         }
     }
 }

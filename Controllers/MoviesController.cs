@@ -21,11 +21,14 @@ namespace WebMovie.Controllers
     public class MoviesController : ControllerBase
     {
         readonly IRepository db;
+        readonly MoviesContext movieContext;
         private Guid UserId => Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
-        public MoviesController(IOptionsSnapshot<MovieSettings> settings)
-        {
-            db = new DBLiteMovieRepository(settings.Get(MovieSettings.LiteDb).connectionString);
 
+        public MoviesController(IOptionsSnapshot<MovieSettings> settings, MoviesContext movieContext)
+        {
+            this.movieContext = movieContext;
+            this.movieContext = new MoviesContext(settings.Get(MovieSettings.LiteDb).connectionString);
+            db = new DBLiteMovieRepository(this.movieContext);
         }
         [HttpGet]
 
