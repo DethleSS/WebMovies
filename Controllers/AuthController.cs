@@ -24,6 +24,7 @@ namespace WebMovie.Controllers
         [HttpGet]
         public List<User> GetUsers()
         {
+
             return db.GetUsers();
         }
 

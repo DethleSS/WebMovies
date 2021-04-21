@@ -9,7 +9,7 @@ using WebMovie.AuthContext;
 namespace WebMovie.Migrations
 {
     [DbContext(typeof(AuthorizationContext))]
-    partial class AuthorizaionContextModelSnapshot : ModelSnapshot
+    partial class AuthorizationContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

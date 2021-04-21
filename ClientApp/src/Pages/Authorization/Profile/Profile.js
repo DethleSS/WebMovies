@@ -22,6 +22,7 @@ const Profile = () => {
             <NavLink to={'/listMovie'}><button className="button--click">To Movies</button></NavLink>
             <div className="m-5">
                 You are Login       
+                {console.log(auth.usertoken)}
                 <button className="button--click " onClick={logoutHandler}>LogOut</button>
             </div>
 

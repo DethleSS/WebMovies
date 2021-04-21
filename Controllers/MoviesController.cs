@@ -30,32 +30,32 @@ namespace WebMovie.Controllers
             this.movieContext = new MoviesContext(settings.Get(MovieSettings.LiteDb).connectionString);
             db = new DBLiteMovieRepository(this.movieContext);
         }
+        [Authorize]
         [HttpGet]
-
         public List<Movie> Get()
         {
             
             return db.GetMovies();          
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public Movie GetById(int id)
         {
             return db.GetMovieById(id);
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
             db.DeleteMovieById(id);
         }
-
+        [Authorize]
         [HttpPost]
         public void AddMovie([FromBody]Movie movie)
         {
             db.AddMovie(movie);
         }
-
+        [Authorize]
         [HttpPut]
         public void UpdateMovie([FromBody]Movie movie)
         {

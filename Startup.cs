@@ -28,9 +28,12 @@ namespace WebMovie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<MoviesContext>();
+            services.AddDbContext<AuthorizationContext>();
+            services.AddScoped<AuthorizationContext>(_ => new AuthorizationContext("authOption"));
             services.Configure<AuthSettings>(AuthSettings.MsSql, Configuration.GetSection("Settings:MsSql"));
             services.Configure<MovieSettings>(MovieSettings.LiteDb, Configuration.GetSection("Settings:LiteDB"));
             services.Configure<AuthTokenOptions>(Configuration.GetSection("Auth"));
+            var authOption = Configuration.GetSection("Auth").Get<AuthTokenOptions>();
             var authTokenOption = Configuration.GetSection("Auth").Get<AuthTokenOptions>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -96,7 +99,6 @@ namespace WebMovie
             app.UseSpaStaticFiles();
             app.UseCors();
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

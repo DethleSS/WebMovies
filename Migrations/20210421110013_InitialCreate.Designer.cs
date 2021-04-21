@@ -10,8 +10,8 @@ using WebMovie.AuthContext;
 namespace WebMovie.Migrations
 {
     [DbContext(typeof(AuthorizationContext))]
-    [Migration("20210415120914_Initial")]
-    partial class Initial
+    [Migration("20210421110013_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

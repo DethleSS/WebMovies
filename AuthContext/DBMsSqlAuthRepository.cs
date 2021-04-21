@@ -63,7 +63,7 @@ namespace WebMovie.AuthContext
                 signingCredentials: credentials);
 
             var tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
-
+            
             return new UserLogin(tokenHandler, account.Id);
 
         }

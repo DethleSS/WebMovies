@@ -17,6 +17,7 @@ const Authorization = () => {
         try {
             const data = await request('/api/Auth', 'POST', { ...form })
             auth.login(data.usertoken, data.userID)
+            console.log(data)
             window.location.reload()
         } catch (e) { }
     }

@@ -11,9 +11,9 @@ namespace WebMovie.AuthContext
     public class AuthorizationContext : DbContext
     {
         private string connectionstring;
-        public AuthorizationContext(string connectionstring)
+        public AuthorizationContext(string connectionString)
         {
-            this.connectionstring = connectionstring;
+            this.connectionstring = connectionString;
         }
         public DbSet<User> User { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
